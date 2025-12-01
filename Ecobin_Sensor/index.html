@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoBinSense - Smart Waste & Drainage Monitoring</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <div class="logo">🗑️</div>
+          <div class="logo-text">
+            <h1>EcoBinSense</h1>
+            <p>Smart Waste & Drainage Monitoring</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="live-indicator">
+            <div class="live-dot"></div>
+            <span>Live</span>
+          </div>
+          <button class="icon-btn" onclick="toggleNotifications()">
+            🔔
+            <span class="notification-badge" id="notificationCount">3</span>
+          </button>
+          <button class="icon-btn" onclick="openSettings()">⚙️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Total Bins Monitored</span>
+            <span class="stat-icon">🗑️</span>
+          </div>
+          <div class="stat-value green">5</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Bins Requiring Attention</span>
+            <span class="stat-icon">⚠️</span>
+          </div>
+          <div class="stat-value yellow">3</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Active Drainage Alerts</span>
+            <span class="stat-icon">🔥</span>
+          </div>
+          <div class="stat-value red">1</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">System Health</span>
+            <span class="stat-icon">📊</span>
+          </div>
+          <div class="stat-value green">63%</div>
+        </div>
+      </div>
+
+      <div class="main-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">City Map</h2>
+            <div style="display: flex; align-items: center; gap: 1rem">
+              <div class="legend">
+                <div class="legend-item">
+                  <div
+                    class="legend-dot"
+                    style="background-color: #22c55e"
+                  ></div>
+                  <span>Normal</span>
+                </div>
+                <div class="legend-item">
+                  <div
+                    class="legend-dot"
+                    style="background-color: #f59e0b"
+                  ></div>
+                  <span>Warning</span>
+                </div>
+                <div class="legend-item">
+                  <div
+                    class="legend-dot"
+                    style="background-color: #dc2626"
+                  ></div>
+                  <span>Critical</span>
+                </div>
+              </div>
+              <div class="zoom-controls">
+                <button class="zoom-btn" onclick="zoomMap(-0.1)">−</button>
+                <button class="zoom-btn" onclick="zoomMap(0.1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="map-container" id="mapContainer">
+            <div class="map-marker marker-critical" style="left: 45%; top: 25%">
+              🗑️
+            </div>
+            <div class="map-marker marker-normal" style="left: 55%; top: 30%">
+              🗑️
+            </div>
+            <div class="map-marker marker-critical" style="left: 65%; top: 50%">
+              🗑️
+            </div>
+            <div class="map-marker marker-critical" style="left: 50%; top: 60%">
+              🗑️
+            </div>
+            <div class="map-marker marker-normal" style="left: 72%; top: 72%">
+              🗑️
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Active Alerts</h2>
+            <span class="alert-badge">1</span>
+          </div>
+          <div class="alert-list">
+            <div class="alert-item">
+              <div class="alert-header">
+                <div class="alert-id">
+                  <span>🗑️</span>
+                  <span>Bin D-18</span>
+                </div>
+                <span class="badge badge-critical">critical</span>
+              </div>
+              <div class="alert-location">Shopping Mall, Food Court</div>
+              <div class="alert-message">
+                Fill level at 85% - Immediate collection required
+              </div>
+              <div class="alert-footer">
+                <span class="alert-time">10 minutes ago</span>
+                <button class="view-btn">👁️ View Details</button>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-header">
+                <div class="alert-id">
+                  <span>🗑️</span>
+                  <span>Bin D-18</span>
+                </div>
+                <span class="badge badge-warning">warning</span>
+              </div>
+              <div class="alert-location">Shopping Mall, Food Court</div>
+              <div class="alert-message">
+                Fill level at 94% - Schedule collection soon
+              </div>
+              <div class="alert-footer">
+                <span class="alert-time">11 minutes ago</span>
+                <button class="view-btn">👁️ View Details</button>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-header">
+                <div class="alert-id">
+                  <span>🗑️</span>
+                  <span>Bin D-18</span>
+                </div>
+                <span class="badge badge-critical">critical</span>
+              </div>
+              <div class="alert-location">Shopping Mall, Food Court</div>
+              <div class="alert-message">
+                Fill level at 86% - Immediate collection required
+              </div>
+              <div class="alert-footer">
+                <span class="alert-time">11 minutes ago</span>
+                <button class="view-btn">👁️ View Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="card">
+          <h2 class="card-title" style="margin-bottom: 1rem">
+            Fill Level Trends
+          </h2>
+          <div class="chart-container">
+            <canvas id="fillLevelChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title" style="margin-bottom: 1rem">
+            Alert Frequency
+          </h2>
+          <div class="chart-container">
+            <canvas id="alertFrequencyChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" style="margin-bottom: 1rem">All Devices</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Location ↕</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Fill/Water Level ↕</th>
+              <th>Last Updated ↕</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Downtown Plaza, Sector 4</td>
+              <td>Bin</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-critical"
+                      style="width: 85%"
+                    ></div>
+                  </div>
+                  <span>85%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+            <tr>
+              <td>Market Street, Near Bus Stop</td>
+              <td>Bin</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-critical"
+                      style="width: 95%"
+                    ></div>
+                  </div>
+                  <span>95%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+            <tr>
+              <td>City Park, Main Entrance</td>
+              <td>Bin</td>
+              <td><span class="badge badge-normal">Normal</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-normal"
+                      style="width: 37%"
+                    ></div>
+                  </div>
+                  <span>37%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+            <tr>
+              <td>School Zone, Gate 3</td>
+              <td>Bin</td>
+              <td><span class="badge badge-normal">Normal</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-normal"
+                      style="width: 41%"
+                    ></div>
+                  </div>
+                  <span>41%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+            <tr>
+              <td>Market Street Intersection</td>
+              <td>Drainage</td>
+              <td><span class="badge badge-normal">Normal</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-normal"
+                      style="width: 1%"
+                    ></div>
+                  </div>
+                  <span>1%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+            <tr>
+              <td>Industrial Area, Zone B</td>
+              <td>Drainage</td>
+              <td><span class="badge badge-normal">Normal</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-normal"
+                      style="width: 1%"
+                    ></div>
+                  </div>
+                  <span>1%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+            <tr>
+              <td>Shopping Mall, Food Court</td>
+              <td>Bin</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-critical"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                  <span>100%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+            <tr>
+              <td>Residential Complex West</td>
+              <td>Drainage</td>
+              <td><span class="badge badge-normal">Normal</span></td>
+              <td>
+                <div class="progress-bar-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill progress-normal"
+                      style="width: 2%"
+                    ></div>
+                  </div>
+                  <span>2%</span>
+                </div>
+              </td>
+              <td>less than a minute ago</td>
+              <td><button class="view-btn">👁️</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <div class="overlay" id="overlay" onclick="closeNotifications()"></div>
+    <div class="notification-panel" id="notificationPanel">
+      <div class="notification-header">
+        <h3>Notifications</h3>
+        <button class="close-btn" onclick="closeNotifications()">×</button>
+      </div>
+      <div class="notification-list">
+        <div class="notification-item unread" onclick="viewNotification(1)">
+          <div class="notification-title">
+            <div class="unread-dot"></div>
+            <span>🗑️ Critical Alert: Bin D-18</span>
+          </div>
+          <div class="notification-message">
+            Fill level at 85% in Shopping Mall, Food Court. Immediate collection
+            required.
+          </div>
+          <div class="notification-time">10 minutes ago</div>
+        </div>
+        <div class="notification-item unread" onclick="viewNotification(2)">
+          <div class="notification-title">
+            <div class="unread-dot"></div>
+            <span>⚠️ Warning: Bin D-18</span>
+          </div>
+          <div class="notification-message">
+            Fill level at 94% in Shopping Mall, Food Court. Schedule collection
+            soon.
+          </div>
+          <div class="notification-time">11 minutes ago</div>
+        </div>
+        <div class="notification-item unread" onclick="viewNotification(3)">
+          <div class="notification-title">
+            <div class="unread-dot"></div>
+            <span>🗑️ Critical Alert: Market Street Bin</span>
+          </div>
+          <div class="notification-message">
+            Fill level at 95% near Bus Stop. Immediate attention needed.
+          </div>
+          <div class="notification-time">15 minutes ago</div>
+        </div>
+        <div class="notification-item" onclick="viewNotification(4)">
+          <div class="notification-title">
+            <span>✅ Collection Completed: City Park</span>
+          </div>
+          <div class="notification-message">
+            Bin at Main Entrance has been successfully emptied.
+          </div>
+          <div class="notification-time">1 hour ago</div>
+        </div>
+        <div class="notification-item" onclick="viewNotification(5)">
+          <div class="notification-title">
+            <span>📊 Daily Report Available</span>
+          </div>
+          <div class="notification-message">
+            Your daily waste collection summary is ready to view.
+          </div>
+          <div class="notification-time">2 hours ago</div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
