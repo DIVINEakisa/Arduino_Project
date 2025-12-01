@@ -1,3 +1,4 @@
+// Notification Panel Functions
 function toggleNotifications() {
   const panel = document.getElementById("notificationPanel");
   const overlay = document.getElementById("overlay");
@@ -22,6 +23,7 @@ function viewNotification(id) {
 
 function openSettings() {
   alert("Opening Settings...\n\nThis would open the settings panel.");
+  // Here you can add code to open settings modal
 }
 
 function updateNotificationCount() {
@@ -37,10 +39,12 @@ function updateNotificationCount() {
   }
 }
 
+// Initialize on page load
 window.onload = function () {
   updateNotificationCount();
 };
 
+// Fill Level Trends Chart
 const fillLevelCtx = document.getElementById("fillLevelChart").getContext("2d");
 new Chart(fillLevelCtx, {
   type: "line",
@@ -83,6 +87,7 @@ new Chart(fillLevelCtx, {
   },
 });
 
+// Alert Frequency Chart
 const alertFrequencyCtx = document
   .getElementById("alertFrequencyChart")
   .getContext("2d");
@@ -116,6 +121,7 @@ new Chart(alertFrequencyCtx, {
   },
 });
 
+// Map zoom functionality
 let currentZoom = 1;
 function zoomMap(delta) {
   currentZoom = Math.max(0.5, Math.min(2, currentZoom + delta));
